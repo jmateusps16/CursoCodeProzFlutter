@@ -13,7 +13,7 @@ void main() {
   int idade31 = 0;
   int idade46 = 0;
   int idade60 = 0;
-  stdout.write("Informe a quantidade de Pessoas será análisado a idade: ");
+  stdout.write("Informe a quantidade de pessoas cuja idade será analisado: ");
   int quantidadePessoas = int.parse(stdin.readLineSync()!);
   int idadeTotal = 0;
 
