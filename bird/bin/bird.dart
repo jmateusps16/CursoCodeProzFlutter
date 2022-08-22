@@ -1,6 +1,7 @@
 import 'package:bird/bird.dart' as bird;
 
 void main() {
+  //Trabalhando com Funções
   print(bird.mediaAluno(10, 20));
 
   bird.mostraNoConsoleSoma(10, 20);
