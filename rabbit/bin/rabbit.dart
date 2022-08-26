@@ -52,4 +52,11 @@ void main(List<String> arguments) {
   print(listaExpansivel);
   listaExpansivel.fillRange(2, 4, 'F');
   print(listaExpansivel);
+
+  int num1 = 10;
+  int num2 = num1;
+
+  print("numero num1 $num1 e num2 $num2");
+  num2 = 3;
+  print("numero num1 $num1 e num2 $num2");
 }
