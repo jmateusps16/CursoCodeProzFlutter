@@ -2,10 +2,11 @@ import 'dart:io';
 import 'dart:math';
 
 void main() {
+  final horaEntrada = DateTime.now();
   int opcao = -1;
   stdout.writeln("Resoluções do exercicio da semana 3.");
   do {
-    stdout.write("Informe entre 1 e 15 para executar o exercicio: ");
+    stdout.write("\nInforme entre 1 e 15 para executar o exercicio: ");
     opcao = int.parse(stdin.readLineSync()!);
     switch (opcao) {
       case 0: // Sai do sistema
@@ -28,6 +29,8 @@ void main() {
         lojaMaca(quantidadeMaca);
         break;
       case 3: //Exercicio 3
+        stdout.writeln(
+            "\nEste exercicio lê os valores e informa o tipo do triângulo");
         stdout.write("Informe o valor de um dos lados do triângulo: ");
         double ladoA = double.parse(stdin.readLineSync()!);
         stdout.write("Informe o outro valor de um dos lados do triângulo: ");
@@ -42,6 +45,7 @@ void main() {
         }
         break;
       case 4: //Exercicio 4
+        stdout.writeln("\nEste exercicio lê tres valores e imprime o maior");
         stdout.write("Informe um numero: ");
         double numUm = double.parse(stdin.readLineSync()!);
         stdout.write("Informe outro numero: ");
@@ -52,6 +56,8 @@ void main() {
         stdout.writeln("O maior numero é: $retornoMaiorNumero");
         break;
       case 5: //Exercicio 5
+        stdout.writeln(
+            "\nEste exercicio calcula o valor a ser pago do combustivel com desconto");
         double valorGasolinaPorLitro = 5.15;
         double valorAlcoolPorLitro = 4.09;
         double litroAbastecido = 0;
@@ -105,6 +111,8 @@ void main() {
         break;
       case 6:
         //Exercicio 6
+        stdout.writeln(
+            "\nEste exercicio lê um valor e informa o mês de referência.");
         Map<int, String> mes = {
           1: "Janeiro",
           2: "Fevereiro",
@@ -121,19 +129,68 @@ void main() {
         };
         stdout.write("\nInforme o numero do Mês: ");
         int escolhaDoUsuario = int.parse(stdin.readLineSync()!);
-        bool opcao = escolhaDoUsuario > 0 && escolhaDoUsuario <= 12;
-        if (!opcao) {
+        bool opcaoExSeis = escolhaDoUsuario > 0 && escolhaDoUsuario <= 12;
+        if (!opcaoExSeis) {
           stdout.writeln("\nErro: Informe entre 1 e 12.");
         } else {
           stdout.writeln(
               "Você passou o $escolhaDoUsuario, ou seja, ${mes[escolhaDoUsuario]}.\n");
         }
         break;
+      case 7:
+        stdout.writeln("\nEste exercicio calcula o peso ideal.");
+        stdout.write("\nM- Masculino");
+        stdout.write("\nF- Feminino");
+        stdout.write(
+            "\nAltura minima permitida de 0.50 CM e maxima 2.72 m."); //Robert Wadlow
+        stdout.write("\nInforme qual o sexo (M ou F): ");
+        String sexo = stdin.readLineSync()!;
+        sexo = sexo.toLowerCase();
+        bool opcaoExSete = sexo == 'm' || sexo == 'f';
+        if (!opcaoExSete) {
+          stdout.writeln("ERRO: Opção inválida, tente novamente.");
+        } else {
+          stdout.write("\nInforme a altura: ");
+          double altura = double.parse(stdin.readLineSync()!);
+          bool alturaPermitida = altura > 0.30 && altura <= 2.72;
+          if (!alturaPermitida) {
+            stdout.writeln("\nERRO: Altura inválida.");
+          } else {
+            if (sexo == 'm') {
+              //Masculino: (72.7 * altura) – 58
+              double retornoPesoIdeal = pesoIdeal(72.7, altura, 58);
+              stdout.writeln("Seu peso ideal é: $retornoPesoIdeal");
+            } else {
+              //Feminino: (62.1 *altura) -44.7
+              double retornoPesoIdeal = pesoIdeal(62.1, altura, 44.7);
+              stdout.writeln("Seu peso ideal é: $retornoPesoIdeal");
+            }
+          }
+        }
+        break;
+      case 8:
+        stdout.write("\nInforme um valor da compra: ");
+        double valorCompra = double.parse(stdin.readLineSync()!);
+        if (valorCompra > 0) {
+          double desconto = descontoLoja(valorCompra);
+          double valorFinalComDesconto = valorCompra - desconto;
+          if (desconto > 0) {
+            stdout.writeln(
+                "Sua compra de $valorCompra R\$ teve um desconto de $desconto R\$, novo valor a ser pago é de: $valorFinalComDesconto R\$");
+          } else {
+            stdout.writeln("O valor a ser pago é de: $valorCompra R\$");
+          }
+        } else {
+          stdout.writeln(
+              "O valor passado é invalido, informe um valor maior que 0.");
+        }
+        break;
       default:
         break;
     }
   } while (opcao != 0);
-  print("Hora de Saída: ${DateTime.now()}");
+  print(
+      "Você iniciou o programa as $horaEntrada e escolheu sair as ${DateTime.now()}\n");
 }
 
 void maiorQue(double val1, double val2) {
@@ -198,4 +255,37 @@ double totalAbastecido(litro, valor, porcentoDesconto) {
 void imprimeAbastecimento(double retornoTotal) {
   stdout.writeln(
       "Valor total a ser pago: R\$ ${retornoTotal.toStringAsFixed(2)} ");
+}
+
+double pesoIdeal(peso, altura, referencia) {
+  double seuPesoIdeal = (peso * altura) - referencia;
+  return seuPesoIdeal;
+}
+
+double descontoLoja(valorVenda) {
+  double referenciaDesconto = valorVenda / 100;
+  int referenciaTruncada = referenciaDesconto.truncate();
+  double desconto = 0;
+  bool semDesconto = referenciaTruncada > 0 && referenciaTruncada < 5;
+  bool descontoMinimoEMaximo =
+      referenciaTruncada >= 5 && referenciaTruncada <= 25;
+  if (semDesconto) {
+    desconto = 0;
+  } else if (!descontoMinimoEMaximo) {
+    if (referenciaDesconto >= 26) {
+      desconto = 25;
+    }
+  } else if (descontoMinimoEMaximo) {
+    for (int i = 5; i <= 25; i++) {
+      if (referenciaTruncada == i) {
+        desconto = desconto + i;
+        break;
+      }
+    }
+  } else {
+    desconto = 0;
+  }
+  desconto = desconto / 100;
+  double valorDescontoFinal = valorVenda * desconto;
+  return valorDescontoFinal;
 }
