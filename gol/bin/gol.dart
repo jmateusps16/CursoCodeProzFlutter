@@ -138,6 +138,7 @@ void main() {
         }
         break;
       case 7:
+        //Exercicio 7
         stdout.writeln("\nEste exercicio calcula o peso ideal.");
         stdout.write("\nM- Masculino");
         stdout.write("\nF- Feminino");
@@ -169,6 +170,7 @@ void main() {
         }
         break;
       case 8:
+        //Exercicio 8
         stdout.write("\nInforme um valor da compra: ");
         double valorCompra = double.parse(stdin.readLineSync()!);
         if (valorCompra > 0) {
@@ -194,7 +196,6 @@ void main() {
 }
 
 void maiorQue(double val1, double val2) {
-  ///Exercicio 1
   if (val1 == val2) {
     stdout.writeln("ERRO: Os valores informados não podem ser iguais.");
   } else if (val1 < val2) {
@@ -205,7 +206,6 @@ void maiorQue(double val1, double val2) {
 }
 
 void lojaMaca(int quantidadeMaca) {
-  ///Exercicio 2
   double precoMacaVarejo = 0.30;
   double precoMacaAtacado = 0.25;
 
@@ -221,7 +221,6 @@ void lojaMaca(int quantidadeMaca) {
 }
 
 void verificaTriangulo(double ladoA, double ladoB, double ladoC) {
-  ///Exercicio 3
   if (ladoA == ladoB && ladoB == ladoC) {
     stdout.writeln("Triângulo Equilátero.");
   } else if ((ladoA == ladoB) || (ladoB == ladoC) || (ladoA == ladoC)) {
@@ -234,7 +233,6 @@ void verificaTriangulo(double ladoA, double ladoB, double ladoC) {
 }
 
 double maiorNumero(double val1, double val2, double val3) {
-  //Exercicio 4
   if (val1 > val2 && val2 < val3) {
     return val1;
   } else if (val2 > val3 && val2 > val1) {
