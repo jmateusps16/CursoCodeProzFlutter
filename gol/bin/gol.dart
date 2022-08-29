@@ -187,6 +187,132 @@ void main() {
               "O valor passado é invalido, informe um valor maior que 0.");
         }
         break;
+      case 9:
+        //Exercicio 9
+        int idadeMaiorQueDezoito = 0;
+        stdout.write(
+            "Informe a quantidade de pessoas cuja idade será analisado: ");
+        int quantidadePessoas = int.parse(stdin.readLineSync()!);
+        int idadeTotal = 0;
+        for (int i = 0; i < quantidadePessoas; i++) {
+          stdout.write("Informe o nome: ");
+          String nome = stdin.readLineSync()!;
+          stdout.write("Informe a idade de $nome: ");
+          int idade = int.parse(stdin.readLineSync()!);
+          if (idade >= 18) {
+            idadeMaiorQueDezoito += 1;
+          }
+        }
+        stdout.writeln("$idadeMaiorQueDezoito pessoas são maiores de idade.");
+        break;
+      case 10:
+        //Exercicio 10
+        int idade15 = 0;
+        int idade16 = 0;
+        int idade31 = 0;
+        int idade46 = 0;
+        int idade60 = 0;
+        stdout.write(
+            "Informe a quantidade de pessoas cuja idade será analisado: ");
+        int quantidadePessoas = int.parse(stdin.readLineSync()!);
+        int idadeTotal = 0;
+
+        for (int i = 0; i < quantidadePessoas; i++) {
+          //Ler nome e idade
+          stdout.write("Informe o nome: ");
+          String nome = stdin.readLineSync()!;
+          stdout.write("Informe a idade de $nome: ");
+          int idade = int.parse(stdin.readLineSync()!);
+
+          bool faixaQuinze = idade >= 1 && idade <= 15;
+          bool faixaDezeseis = idade >= 16 && idade <= 30;
+          bool faixaTrintaeUm = idade >= 31 && idade <= 45;
+          bool faixaQuarentaeSeis = idade >= 46 && idade < 60;
+          bool acimadeSesenta = idade > 60;
+
+          if (faixaQuinze) {
+            idade15 += 1;
+            idadeTotal += 1;
+          } else if (faixaDezeseis) {
+            idade16 += 1;
+            idadeTotal += 1;
+          } else if (faixaTrintaeUm) {
+            idade31 += 1;
+            idadeTotal += 1;
+          } else if (faixaQuarentaeSeis) {
+            idade46 += 1;
+            idadeTotal += 1;
+          } else if (acimadeSesenta) {
+            idade60 += 1;
+            idadeTotal += 1;
+          } else {
+            print(
+                "O valor da idade ($idade) digitado não é valido, tente novamente.");
+            stdout.writeln("Saindo do programa...");
+            break;
+          }
+        }
+        if (idadeTotal == quantidadePessoas) {
+          stdout.writeln(
+              "A quantidade de pessoas até 15 anos é de: $idade15, representando ${((idade15 / quantidadePessoas) * 100).toStringAsFixed(2)}% do total inserido.");
+          stdout.writeln("A quantidade de pessoas com 16 a 30 anos: $idade16");
+          stdout.writeln("A quantidade de pessoas com 31 a 45 anos: $idade31");
+          stdout.writeln("A quantidade de pessoas com 46 a 60 anos: $idade46");
+          stdout.writeln(
+              "A quantidade de pessoas acima de 60 anos é de: $idade60, representando ${((idade60 / quantidadePessoas) * 100).toStringAsFixed(2)}% do total inserido.");
+        } else {
+          stdout.write("Algum problema ocorreu, nenhum dado a ser exibido...");
+        }
+        break;
+      case 11:
+        //Exercicio 11
+        List par = [];
+        List impar = [];
+        stdout.write("\nInforme um valor: ");
+        int valorInformado = int.parse(stdin.readLineSync()!);
+        if (valorInformado > 0) {
+          for (int i = 1; i <= valorInformado; i++) {
+            double mod = i % 2;
+            if (mod == 0) {
+              par.add(i);
+            } else {
+              impar.add(i);
+            }
+          }
+          stdout.writeln("No $valorInformado, os valores pares são: $par.");
+          stdout.writeln("No $valorInformado, os valores impares são: $impar.");
+        } else {
+          stdout.writeln("ERRO: Insira um numero maior que 0");
+        }
+
+        break;
+      case 12:
+        //Exercicio 12
+        int idade = -1;
+        int incremento = -1;
+        int somaIdade = 0;
+        stdout.writeln("\nEste programa calcula a média das idades inseridas.");
+        stdout.writeln("Para sair digite a idade 0");
+        do {
+          stdout.write("\nInforme a idade: ");
+          idade = int.parse(stdin.readLineSync()!);
+          somaIdade += idade;
+          incremento += 1;
+        } while (idade != 0);
+        double mediaIdade = somaIdade / incremento;
+        stdout.writeln("Você optou por sair.");
+        stdout.writeln(
+            "\nA média das idades é de: ${mediaIdade.toStringAsFixed(0)} anos.");
+        break;
+      case 13:
+        //Exercicio 13
+        break;
+      case 14:
+        //Exercicio 14
+        break;
+      case 15:
+        //Exercicio 15
+        break;
       default:
         break;
     }
@@ -266,19 +392,16 @@ double descontoLoja(valorVenda) {
   double desconto = 0;
   bool semDesconto = referenciaTruncada > 0 && referenciaTruncada < 5;
   bool descontoMinimoEMaximo =
-      referenciaTruncada >= 5 && referenciaTruncada <= 25;
+      referenciaTruncada >= 5 && referenciaTruncada <= 29;
   if (semDesconto) {
     desconto = 0;
   } else if (!descontoMinimoEMaximo) {
-    if (referenciaDesconto >= 26) {
+    if (referenciaDesconto >= 30) {
       desconto = 25;
     }
   } else if (descontoMinimoEMaximo) {
-    for (int i = 5; i <= 25; i++) {
-      if (referenciaTruncada == i) {
-        desconto = desconto + i;
-        break;
-      }
+    for (int i = 5; i <= referenciaTruncada; i++) {
+      desconto += 1;
     }
   } else {
     desconto = 0;
