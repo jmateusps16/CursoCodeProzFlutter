@@ -306,12 +306,37 @@ void main() {
         break;
       case 13:
         //Exercicio 13
+        stdout.writeln("Não realizado.");
         break;
       case 14:
         //Exercicio 14
+        stdout.writeln("Não realizado.");
         break;
       case 15:
         //Exercicio 15
+        stdout.writeln("Este programa analisa o maior e menor dos inseridos.");
+        stdout.write("\nInsira a quantidade de numeros: ");
+        int quantidade = int.parse(stdin.readLineSync()!);
+        double maiorNumero = 0;
+        double menorNumero = 0;
+        List numerosInformados = [];
+        for (int i = 0; i < quantidade; i++) {
+          stdout.write("Informe um numero: ");
+          double numeroPassado = double.parse(stdin.readLineSync()!);
+          if (numeroPassado > maiorNumero) {
+            maiorNumero = numeroPassado;
+            numerosInformados.add(numeroPassado);
+          } else if (numeroPassado < menorNumero) {
+            menorNumero = numeroPassado;
+            numerosInformados.add(numeroPassado);
+          } else {
+            numerosInformados.add(numeroPassado);
+          }
+        }
+        stdout.write("Numeros Informados: ");
+        stdout.writeln(numerosInformados);
+        stdout.writeln(
+            "\nO menor numero inserido é $menorNumero e o maior é $maiorNumero");
         break;
       default:
         break;
